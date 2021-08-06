@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+    <title>Çıkar - Matematik Öğreniyorum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../assets/img/math.png" rel="icon">
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mathtutor.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+
+    <script src="js/jquery-2.0.3.min.js"></script>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/controllerSubtract.js"></script>
+</head>
+
+<body ng-init="reloadPage()" ng-controller="mathtutor">
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <div class="logo">
+        <h1><a href="../index.html">MATEMATİK ÖĞRENİYORUM</a></h1>
+
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="../index.html">Ana Sayfa</a></li>
+          <li><a href="add.html">Topla</a></li>
+          <li><a href="subtract.html">Çıkar</a></li>
+          <li><a href="multiply.html">Çarp</a></li>
+          <li><a href="divide.html">Böl</a></li>
+          <li><a href="../about.html">Hakkında</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+    <div class="container" id="container-game">
+        <div class="row">
+            <div class="col-xs-12 visible-xs">
+              <div class="game-title">
+                  <a href="../index.html"><p class="text-center">{{gametitle}}</p></a>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <img src="images/apple.png" class="apple apple-lives" ng-repeat="a in range(noOfApples) track by $index">
+            </div>
+            <div class="col-sm-4 hidden-xs">
+              <div class="game-title">
+                  <a href="../index.html"><p class="text-center">{{gametitle}}</p></a>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+                <div class="text-right reward-font">
+                    <img src="images/chocolate.png" class="apple">
+                    <span>{{noOfIceCreams}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="panel panel-default blackboard-outer">
+                <div class="panel-body blackboard">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="images/orange.png" class="counting-object" ng-repeat="n in range(n1) track by $index">
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="images/orange.png" class="counting-object pull-right" ng-repeat="n in range(n2) track by $index">
+                        </div>
+                    </div>
+                    <p class="question text-center">{{question}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container answer-row">
+          <div class="row">
+              <div class="col-sm-1 hidden-xs">
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                  <input type="text" class="form-control" id="answer" placeholder="Buraya yazın" ng-model="userAnswer" x-webkit-speech onwebkitspeechchange="onVoiceAnswer()">
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                  <button class="btn btn-primary center-block full-width" ng-click="onSubmitAnswer()" id="submitbutton">Gönder</button>
+              </div>
+              <div class="hidden">
+                  <button class="btn btn-primary" ng-click="onVoiceAnswer()" id="voicesubmitbutton">Voice Submit</button>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                  <button class="btn btn-danger center-block full-width" ng-click="skipQuestion()">Atla</button>
+              </div>
+
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="lost-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Kaybettin!</h4>
+                </div>
+                <div class="modal-body">
+                    <h2>Bir daha ki sefere artık :)</h2>
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reloadPage()">Yeniden Dene</button>
+                    <a href="../index.html" type="button" class="btn btn-success">Ana Sayfa</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#answer").keyup(function(event) {
+            if (event.keyCode == 13) {
+                $("#submitbutton").click();
+            }
+        });
+
+        function onVoiceAnswer() {
+            $('#voicesubmitbutton').click();
+        }
+    </script>
+</body>
+
+</html>
